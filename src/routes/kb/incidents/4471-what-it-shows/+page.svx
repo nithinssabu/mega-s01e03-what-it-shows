@@ -1,6 +1,6 @@
 ---
 layout: runbook
-title: '#4471 · what it shows: three problems, not one'
+title: '#4471 · what it shows: two problems, not one'
 owner: support desk
 status: draft
 reviewed: 2026-10-28
@@ -9,19 +9,18 @@ signature: v1.eyJzdWIiOiI3MzA4IiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYX
 
 <script>
   import ProblemSplit from '#lib/kb/ProblemSplit.svelte';
-  import CauseTable from '#lib/kb/CauseTable.svelte';
   import Callout from '#lib/kb/Callout.svelte';
   import RenderStamp from '#lib/kb/RenderStamp.svelte';
 </script>
 
 [#4471](/kb/incidents/4471) was merged as one issue with one fix queued. The reports in it describe
-three different problems. Fixing the first one will not fix the other two.
+two different problems. Fixing the first one will not fix the second.
 
 <Callout>
 Not one issue. Each problem below has its own ticket and its own count.
 </Callout>
 
-## The three problems
+## The two problems
 
 <ProblemSplit ticket={4471} />
 
@@ -29,19 +28,13 @@ Not one issue. Each problem below has its own ticket and its own count.
    flipped. This is the one #4471 describes, and the fix that is queued.
 2. **The booking-v3 form prints `MM/DD/YYYY` under the date field.** Day-first tenants type what the hint
    says, and the form reads it the tenant's way. The date flips a second time. The parser fix does not touch it.
-3. **Dates arrive exactly one day off.** No month and day swap. The desk's notes already mark these as one-day
-   moves, but they were counted under the parser. The cause is not confirmed.
 
-## What the desk counted
-
-<CauseTable ticket={4471} />
-
-The table above sorts by cause and files the one-day moves under the parser. That is why #3 stayed hidden:
-it counts the five one-day moves with the parser and shows only two causes.
+A report belongs to the cause of its tenant, its locale and its booking form. Neither what intake tagged
+nor how the reporter worded it decides that.
 
 ## Why subject matching missed it
 
-[Decision 0001](/kb/decisions/0001-dedupe-by-subject) merges on the subject line alone. The three problems share
+[Decision 0001](/kb/decisions/0001-dedupe-by-subject) merges on the subject line alone. Both problems share
 subjects such as "Wrong day on the invite", so they merged. Intake's `intakeTag` was no better: it tagged
 15 of the 33 form-hint reports as `parser`.
 

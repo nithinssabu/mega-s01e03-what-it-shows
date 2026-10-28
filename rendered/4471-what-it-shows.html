@@ -1,32 +1,24 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><title>#4471 · what it shows: three problems, not one</title>
+<html lang="en"><head><meta charset="utf-8"><title>#4471 · what it shows: two problems, not one</title>
 <style>body{font:16px/1.5 system-ui;max-width:46rem;margin:2rem auto;padding:0 1rem}table{border-collapse:collapse}td,th{border:1px solid #ccc;padding:.3rem .7rem;text-align:left}.callout{border-left:4px solid #c60;background:#fff4e8;padding:.5rem 1rem}.stamp{font:.85rem monospace;color:#666}.stamp b{color:#06c;letter-spacing:.04em}.meta{color:#666;font-size:.9rem}</style></head><body>
 <p class="meta">owner: support desk · status: draft · reviewed: 2026-10-28</p>
-<h1>#4471 · what it shows: three problems, not one</h1>
-<p><a href="/kb/incidents/4471">#4471</a> was merged as one issue with one fix queued. The reports in it describe three different problems. Fixing the first one will not fix the other two.</p>
+<h1>#4471 · what it shows: two problems, not one</h1>
+<p><a href="/kb/incidents/4471">#4471</a> was merged as one issue with one fix queued. The reports in it describe two different problems. Fixing the first one will not fix the second.</p>
 <div class="callout">Not one issue. Each problem below has its own ticket and its own count.</div>
-<h2>The three problems</h2>
-<p><strong>412</strong> reports merged into #4471 · <strong>3</strong> problems</p>
+<h2>The two problems</h2>
+<p><strong>412</strong> reports merged into #4471 · <strong>2</strong> problems</p>
 <table><thead><tr><th>problem</th><th>reports</th><th>ticket</th></tr></thead><tbody>
-<tr><td>parser reads month first</td><td>374</td><td><a href="https://github.com/nithinssabu/mega-s01e03-what-it-shows/issues/1">#1</a></td></tr>
+<tr><td>parser reads month first</td><td>379</td><td><a href="https://github.com/nithinssabu/mega-s01e03-what-it-shows/issues/1">#1</a></td></tr>
 <tr><td>booking-v3 form hint says MM/DD/YYYY</td><td>33</td><td><a href="https://github.com/nithinssabu/mega-s01e03-what-it-shows/issues/2">#2</a></td></tr>
-<tr><td>one day off, cause unconfirmed</td><td>5</td><td><a href="https://github.com/nithinssabu/mega-s01e03-what-it-shows/issues/3">#3</a></td></tr>
 </tbody></table>
+<p class="meta">5 of the parser reports read as a one-day move; counted under the parser by tenant.</p>
 <ol>
 <li><strong>The parser reads dates month first.</strong> Tenants whose locale writes the day first get their dates flipped. This is the one #4471 describes, and the fix that is queued.</li>
 <li><strong>The booking-v3 form prints <code>MM/DD/YYYY</code> under the date field.</strong> Day-first tenants type what the hint says, and the form reads it the tenant's way. The date flips a second time. The parser fix does not touch it.</li>
-<li><strong>Dates arrive exactly one day off.</strong> No month and day swap. The desk's notes already mark these as one-day moves, but they were counted under the parser. The cause is not confirmed.</li>
 </ol>
-<h2>What the desk counted</h2>
-<p><strong>412</strong> reports merged into #4471 · <strong>2</strong> causes</p>
-<table><thead><tr><th>cause</th><th>reports</th><th>tagged as</th><th>tenants</th><th>seen</th><th></th></tr></thead><tbody>
-<tr><td><code>parser</code></td><td>379</td><td>parser ×356 · hint ×23</td><td>11</td><td>2026-04-01 → 2026-10-04</td><td>#4471</td></tr>
-<tr><td><code>hint</code></td><td>33</td><td>hint ×18 · parser ×15</td><td>3</td><td>2026-04-17 → 2026-09-22</td><td>not this ticket — no ticket of its own</td></tr>
-</tbody></table>
-<p class="meta">5 reports read as a one-day move; filed under <code>parser</code> by tenant.</p>
-<p>The table above sorts by cause and files the one-day moves under the parser. That is why problem 3 stayed hidden: it counts the five one-day moves with the parser and shows only two causes.</p>
+<p>A report belongs to the cause of its tenant, its locale and its booking form. Neither what intake tagged nor how the reporter worded it decides that.</p>
 <h2>Why subject matching missed it</h2>
-<p><a href="/kb/decisions/0001-dedupe-by-subject">Decision 0001</a> merges on the subject line alone. The three problems share subjects such as "Wrong day on the invite", so they merged. Intake's <code>intakeTag</code> was no better: it tagged 15 of the 33 form-hint reports as <code>parser</code>.</p>
+<p><a href="/kb/decisions/0001-dedupe-by-subject">Decision 0001</a> merges on the subject line alone. Both problems share subjects such as "Wrong day on the invite", so they merged. Intake's <code>intakeTag</code> was no better: it tagged 15 of the 33 form-hint reports as <code>parser</code>.</p>
 <h2>Lessons</h2>
 <ul><li>A big ticket can be several bugs reported many times. Count by cause before you merge, not after.</li><li>A guess made at intake is not a cause. Check the tenant's locale and form.</li></ul>
 <p class="stamp">desk ref <b>DR-5FFQ-ZNGA</b></p>

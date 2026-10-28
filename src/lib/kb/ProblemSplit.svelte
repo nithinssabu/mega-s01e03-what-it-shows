@@ -9,14 +9,13 @@
   const REPO = 'https://github.com/nithinssabu/mega-s01e03-what-it-shows/issues';
 
   const merged = $derived(uniqueById(reports as Report[]).filter((r) => r.mergedInto === ticket));
-  const isShift = (r: Report) => notes.oneDayMove.includes(r.id);
+  const count = (cause: 'parser' | 'hint') => merged.filter((r) => causeOf(r, tenantOf(r)) === cause).length;
+  const moved = $derived(merged.filter((r) => notes.oneDayMove.includes(r.id)).length);
 
-  // The desk footnotes the one-day moves under `parser`; they are a problem of their own.
   const problems = $derived(
     [
-      { name: 'parser reads month first', issue: 1, n: merged.filter((r) => !isShift(r) && causeOf(r, tenantOf(r)) === 'parser').length },
-      { name: 'booking-v3 form hint says MM/DD/YYYY', issue: 2, n: merged.filter((r) => !isShift(r) && causeOf(r, tenantOf(r)) === 'hint').length },
-      { name: 'one day off, cause unconfirmed', issue: 3, n: merged.filter(isShift).length },
+      { name: 'parser reads month first', issue: 1, n: count('parser') },
+      { name: 'booking-v3 form hint says MM/DD/YYYY', issue: 2, n: count('hint') },
     ].sort((a, b) => b.n - a.n),
   );
 </script>
@@ -41,6 +40,11 @@
   </tbody>
 </table>
 
+{#if moved}
+  <p class="note">{moved} of the parser reports read as a one-day move; counted under the parser by tenant.</p>
+{/if}
+
 <style>
   .sum { font-size: 1.1rem; }
+  .note { color: var(--muted); font-size: 0.85em; }
 </style>
