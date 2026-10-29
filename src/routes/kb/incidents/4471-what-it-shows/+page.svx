@@ -32,6 +32,13 @@ Not one issue. Each problem below has its own ticket and its own count.
 A report belongs to the cause of its tenant, its locale and its booking form. Neither what intake tagged
 nor how the reporter worded it decides that.
 
+## What happened
+
+Engineering closed #4471 on 5 Oct.
+
+- **Parser ([#1](https://github.com/nithinssabu/mega-s01e03-what-it-shows/issues/1)): fixed.** The fix is `fix(dates): parse dd/mm for eu locales`.
+- **Form hint ([#2](https://github.com/nithinssabu/mega-s01e03-what-it-shows/issues/2)): won't fix.** The booking-v3 form was retired, so the hint no longer applies.
+
 ## Why subject matching missed it
 
 [Decision 0001](/kb/decisions/0001-dedupe-by-subject) merges on the subject line alone. Both problems share

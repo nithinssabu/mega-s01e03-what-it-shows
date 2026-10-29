@@ -17,6 +17,10 @@
 <li><strong>The booking-v3 form prints <code>MM/DD/YYYY</code> under the date field.</strong> Day-first tenants type what the hint says, and the form reads it the tenant's way. The date flips a second time. The parser fix does not touch it.</li>
 </ol>
 <p>A report belongs to the cause of its tenant, its locale and its booking form. Neither what intake tagged nor how the reporter worded it decides that.</p>
+<h2>What happened</h2>
+<p>Engineering closed #4471 on 5 Oct.</p>
+<ul><li><strong>Parser (<a href="https://github.com/nithinssabu/mega-s01e03-what-it-shows/issues/1">#1</a>): fixed.</strong> The fix is <code>fix(dates): parse dd/mm for eu locales</code>.</li>
+<li><strong>Form hint (<a href="https://github.com/nithinssabu/mega-s01e03-what-it-shows/issues/2">#2</a>): won't fix.</strong> The booking-v3 form was retired, so the hint no longer applies.</li></ul>
 <h2>Why subject matching missed it</h2>
 <p><a href="/kb/decisions/0001-dedupe-by-subject">Decision 0001</a> merges on the subject line alone. Both problems share subjects such as "Wrong day on the invite", so they merged. Intake's <code>intakeTag</code> was no better: it tagged 15 of the 33 form-hint reports as <code>parser</code>.</p>
 <h2>Lessons</h2>
